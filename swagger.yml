@@ -1,0 +1,407 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Final Project (API), endpoints
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  ## Director Endpoint
+  /directors:
+    get:
+      operationId: directors.read_all
+      tags:
+        - Directors
+      summary: Read the entire set of directors, sorted by id. Can be sort by enter limit param
+      description: Read the entire set of directors, sorted by id. Can be sort by enter limit param
+      parameters:
+        - in: query
+          name: limit
+          type: integer
+          description: Limit data for get request
+      responses:
+        200:
+          description: Successfully read directors set operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/DirectorsResponse"
+              
+  /director:
+    post:
+        operationId: directors.create
+        tags:
+          - Directors
+        summary: Create a new director
+        description: Create a new director
+        parameters:
+          - name: director
+            in: body
+            description: new data director to create
+            required: True
+            schema:
+              $ref: '#/definitions/DirectorRequest'
+        responses:
+          201:
+            description: Successfully created director
+            schema:
+              $ref: '#/definitions/Director'
+  
+  /director/{id}:
+    get:
+      operationId: directors.read_one
+      tags:
+        - Directors
+      summary: Read one director by id
+      description: Read one director by id
+      parameters:
+        - name: id
+          in: path
+          description: Id of the director to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read director from directors data operation
+          schema:
+            $ref: "#/definitions/DirectorsResponse"
+
+    put:
+      operationId: directors.update
+      tags:
+        - Directors
+      summary: Update a director
+      description: Update a director
+      parameters:
+        - name: id
+          in: path
+          description: Id the director to update
+          type: integer
+          required: True
+        - name: director
+          in: body
+          schema:
+            $ref: "#/definitions/DirectorRequest"
+      responses:
+        200:
+          description: Successfully updated director
+          schema:
+            $ref: "#/definitions/Director"
+
+    delete:
+      operationId: directors.delete
+      tags:
+        - Directors
+      summary: Delete a director from the directors list
+      description: Delete a director
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          description: Id of the director to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a director
+
+## Movies Endpoint
+  /movies:
+    get:
+      operationId: movies.read_all
+      tags:
+        - Movies
+      summary: Read the entire set of movies, sorted by id. Can be sort by enter limit param
+      description: Read the entire set of movies, sorted by id. Can be sort by enter limit param
+      parameters:
+        - in: query
+          name: limit
+          type: integer
+          description: Limit data for get request
+      responses:
+        200:
+          description: Successfully read movies set operation
+          schema:
+            $ref: '#/definitions/MoviesResponse'
+  
+  /directors/{director_id}/movie:
+    post:
+      operationId: movies.create
+      tags:
+        - Movies
+      summary: Create a movie associated with a director
+      description: Create a movie associated with a director
+      parameters:
+        - name: director_id
+          in: path
+          description: Id of person associated with note
+          type: integer
+          required: True
+        - name: movie
+          in: body
+          description: Text content of the note to create
+          required: True
+          schema:
+            $ref: '#/definitions/MovieRequest'
+      responses:
+        201:
+          description: Successfully created a note
+          schema:
+            $ref: '#/definitions/Movie'
+            
+  /directors/{director_id}/movies/{movie_id}:
+    get:
+      operationId: movies.read_one
+      tags:
+        - Movies
+      summary: Read a particular note associated with a person
+      description: Read a particular note associated with a person
+      parameters:
+        - name: director_id
+          in: path
+          description: Id of director associated with movie
+          type: integer
+          required: True
+        - name: movie_id
+          in: path
+          description: Id of move
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read movie for a director
+          schema:
+            $ref: '#/definitions/Movie'
+            
+    put:
+      operationId: movies.update
+      tags:
+        - Movies
+      summary: Update a movie associated with a director
+      description: Update a movie associated with a director
+      parameters:
+        - name: director_id
+          in: path
+          description: Id the director to update
+          type: integer
+          required: True
+        - name: movie_id
+          in: path
+          description: Id of the movie associated with a director
+          type: integer
+          required: True
+        - name: movie
+          in: body
+          schema:
+            $ref: '#/definitions/MovieRequest'
+      responses:
+        200:
+          description: Successfully updated movie
+          schema:
+            $ref: '#/definitions/Movie'
+
+    delete:
+      operationId: movies.delete
+      tags:
+        - Movies
+      summary: Delete a movie associated with a director
+      description: Delete a movie associated with a director
+      parameters:
+        - name: director_id
+          in: path
+          description: Id of director associated with movie
+          type: integer
+          required: True
+        - name: movie_id
+          in: path
+          description: Id of movie
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a movie
+    
+
+## Template
+definitions:
+  Director:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id of director
+      name:
+        type: string
+        description: name of director
+      gender:
+        type: integer
+        description: gender of director
+      uid:
+        type: integer
+        description: uid of director
+      department:
+        type: string
+        description: department of director
+  DirectorRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: name of director
+      gender:
+        type: integer
+        description: gender of director
+      uid:
+        type: integer
+        description: uid of director
+      department:
+        type: string
+        description: department of director
+  DirectorsResponse:
+    type: object
+    properties:
+      id:
+        type: number
+        description: id of director
+      name:
+        type: string
+        description: name of director
+      gender:
+        type: integer
+        description: gender of director
+      uid:
+        type: integer
+        description: uid of director
+      department:
+        type: string
+        description: department of director
+      movies:
+        type: array
+        items:
+          $ref: '#/definitions/Movie'
+  Movie:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id of movie
+      original_title:
+        type: string
+        description: origina_title of movie
+      budget:
+        type: integer
+        description: budget of movie
+      popularity:
+        type: integer
+        description: popularity of movie
+      release_date:
+        type: string
+        description: release date of movie
+      revenue:
+        type: integer
+        description: revenue of movie
+      title:
+        type: string
+        description: title of movie
+      vote_average:
+        type: number
+        description: vote average of movie
+      vote_count:
+        type: integer
+        description: vote count of movie
+      overview:
+        type: string
+        description: overview of movie
+      tagline:
+        type: string
+        description: tagline of movie
+      uid:
+        type: integer
+        description: uid of movie
+      director_id:
+        type: integer
+        description: director id of movie
+  MovieRequest:
+    type: object
+    properties:
+      original_title:
+        type: string
+        description: origina_title of movie
+      budget:
+        type: integer
+        description: budget of movie
+      popularity:
+        type: integer
+        description: popularity of movie
+      release_date:
+        type: string
+        description: release date of movie
+      revenue:
+        type: integer
+        description: revenue of movie
+      title:
+        type: string
+        description: title of movie
+      vote_average:
+        type: number
+        description: vote average of movie
+      vote_count:
+        type: integer
+        description: vote count of movie
+      overview:
+        type: string
+        description: overview of movie
+      tagline:
+        type: string
+        description: tagline of movie
+      uid:
+        type: integer
+        description: uid of movie
+  MoviesResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id of movie
+      original_title:
+        type: string
+        description: origina_title of movie
+      budget:
+        type: integer
+        description: budget of movie
+      popularity:
+        type: integer
+        description: popularity of movie
+      release_date:
+        type: string
+        description: release date of movie
+      revenue:
+        type: integer
+        description: revenue of movie
+      title:
+        type: string
+        description: title of movie
+      vote_average:
+        type: number
+        description: vote average of movie
+      vote_count:
+        type: integer
+        description: vote count of movie
+      overview:
+        type: string
+        description: overview of movie
+      tagline:
+        type: string
+        description: tagline of movie
+      uid:
+        type: integer
+        description: uid of movie
+      director:
+        type: array
+        items:
+          $ref: '#/definitions/Director'
