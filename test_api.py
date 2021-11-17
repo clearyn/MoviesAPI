@@ -1,3 +1,6 @@
+"""
+This is testing module using pytest, to run this test use command: pytest
+"""
 import pytest, json
 from config import connex_app
 from models import Directors
