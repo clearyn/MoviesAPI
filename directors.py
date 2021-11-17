@@ -3,6 +3,7 @@ This is the directors module and supports all the REST actions for the
 director data
 """
 
+from operator import itemgetter
 from flask import make_response, abort
 from config import db
 from models import Directors, DirectorsSchema, Movies
@@ -163,3 +164,54 @@ def delete(id):
     # Otherwise, nope, didn't find that director
     else:
         abort(404, f"Director not found for Id: {id}")
+
+def summary(limit):
+    """
+    This function responds to a request for /api/directors
+    with the complete lists of directors summary
+    :param limit: limit of data to show
+    :return: json string of list of directors summary
+    """
+
+    # Serialize the data for the response
+    def call_data(directors):
+        directors_schema = DirectorsSchema(many=True)
+        data = directors_schema.dump(directors)
+        return data
+
+    # Check if parameter is true
+    if isinstance(limit, int) == True and limit > 0:
+        data_processed = []
+
+        # Create the list of people from our data
+        directors = Directors.query.order_by(Directors.id).limit(limit).all()
+        data = call_data(directors)
+
+        for d in data:
+
+            total_budget = 0
+            total_revenue = 0
+            total_popularity = 0
+
+            # Loop movies each director
+            for m in d['movies']:
+                total_budget += int(m['budget'])
+                total_revenue += int(m['revenue'])
+                total_popularity += int(m['popularity'])
+
+            # Append new object to list
+            data_processed.append({
+                'id' : d['id'],
+                'name' : d['name'],
+                'gender' : d['gender'],
+                'total_budget' : total_budget,
+                'total_revenue' : total_revenue,
+                'total_popularity' : total_popularity
+            })
+
+        # Return the result (list of dict)
+        return data_processed
+        
+    # Otherwise, return type inserted
+    else:
+        abort(404, f"Required parameter id as integer: Found{type(limit)}")

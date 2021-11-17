@@ -1,5 +1,6 @@
 """
-This is testing module using pytest, to run this test use command: pytest
+This is testing module using pytest, to run this test use command: 'pytest -v'
+for online run 'heroku run pytest -v test_api.py'
 """
 import pytest, json
 from config import connex_app
@@ -36,15 +37,13 @@ def test_directors_read_one(client):
 # 		url = 'api/director'
 
 # 		mock_request_data = {
-# 			'payload': {
-# 				'department': 'TestDepartment1',
-# 				'gender': 2,
-# 				'name': 'Test1',
-# 				'uid': 1
-# 			}
+# 			'department': 'TestDepartment1',
+# 			'gender': 2,
+# 			'name': 'Test1',
+# 			'uid': 1
 # 		}
 
-# 		response = client.post(url, data=json.dumps(mock_request_data))
+# 		response = client.post(url, json = mock_request_data)
 # 		assert response.status_code == 201, f"directors.create: expected 201. status code: {response.status_code}"
 
 ##Endpoint Movies

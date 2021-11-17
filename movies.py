@@ -6,6 +6,7 @@ movie data
 from flask import make_response, abort
 from config import db
 from models import Movies, MoviesSchema, Directors
+from sqlalchemy import desc
 
 
 def read_all(limit = None):
@@ -162,3 +163,40 @@ def delete(director_id, movie_id):
     # Otherwise, nope, didn't find that movie
     else:
         abort(404, f"Movie not found for Id: {movie_id}")
+
+def summary(limit, order_by = None):
+    """
+    This function responds to a request for /api/movies
+    with the complete lists of movies
+    :param limit: limit of data to show
+    :return: json string of list of movies
+    """
+
+    # Serialize the data for the response
+    def call_data(movies):
+        directors_schema = MoviesSchema(many=True)
+        data = directors_schema.dump(movies)
+        return data
+
+    # Check if parameter is true
+    order_by_choices = ['budget', 'revenue', 'popularity']
+    if isinstance(limit, int) == True and limit > 0:
+
+        # query by selected order by
+        if isinstance(order_by, str) and str(order_by) in order_by_choices:
+            movies = Movies.query.order_by(desc(Movies.budget)).limit(limit)
+            if order_by == 'revenue':
+                movies = Movies.query.order_by(desc(Movies.revenue)).limit(limit)
+            elif order_by == 'popularity':
+                movies = Movies.query.order_by(desc(Movies.revenue)).limit(limit)
+            else:
+                movies = Movies.query.order_by(desc(Movies.budget)).limit(limit)
+        else:
+            abort(404, f"Order by parameter available is ['budget', 'revenue', 'popularity']")
+        
+        data = call_data(movies)
+        return data
+
+    # Otherwise, return error
+    else:
+        abort(404, f"Required parameter id as integer: Found{type(limit)}")
