@@ -12,8 +12,8 @@ def read_all(limit = None):
     """
     This function responds to a request for /api/directors
     with the complete lists of directors
-    :param limit:   limit of data to show
-    :return:        json string of list of directors
+    :param limit: limit of data to show
+    :return: json string of list of directors
     """
 
     # Serialize the data for the response
@@ -72,8 +72,8 @@ def create(director):
     """
     This function creates a new director in the directors structure
     based on the passed in director data
-    :param director:  director to create in directors structure
-    :return:        201 on success, 406 on director exists
+    :param director: director to create in directors structure
+    :return: 201 on success, 406 on director exists
     """
     name = director.get("name")
     gender = director.get("gender")

@@ -1,3 +1,7 @@
+"""
+Models Module: This module contain every relation include SqlAlchemy Models and Marsmallow Relations,
+this model can be imported to call model for every table(object) needed for return structure object model
+"""
 from config import db, ma
 from marshmallow import fields
 

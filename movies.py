@@ -12,8 +12,8 @@ def read_all(limit = None):
     """
     This function responds to a request for /api/movies
     with the complete lists of movies
-    :param limit:   limit of data to show
-    :return:        json string of list of movies
+    :param limit: limit of data to show
+    :return: json string of list of movies
     """
 
     # Serialize the data for the response
@@ -72,9 +72,9 @@ def read_one(director_id, movie_id):
 def create(director_id, movie):
     """
     This function creates a new movie related to the passed in director id.
-    :param director_id:       Id of the director the movie is related to
-    :param movie:            The JSON containing the movie data
-    :return:                201 on success
+    :param director_id: Id of the director the movie is related to
+    :param movie: The JSON containing the movie data
+    :return: 201 on success
     """
     # get the parent director
     director = Directors.query.filter(Directors.id == director_id).one_or_none()
@@ -101,10 +101,10 @@ def update(director_id, movie_id, movie):
     """
     This function updates an existing movie related to the passed in
     director id.
-    :param director_id:       Id of the director the movie is related to
-    :param movie_id:         Id of the movie to update
-    :param movie:            The JSON containing the movie data
-    :return:                200 on success
+    :param director_id: Id of the director the movie is related to
+    :param movie_id: Id of the movie to update
+    :param movie: The JSON containing the movie data
+    :return: 200 on success
     """
     update_movie = (
         Movies.query.filter(Directors.id == director_id)
@@ -140,9 +140,9 @@ def update(director_id, movie_id, movie):
 def delete(director_id, movie_id):
     """
     This function deletes a movie from the movie structure
-    :param director_id:   Id of the person the movie is related to
-    :param movie_id:     Id of the movie to delete
-    :return:            200 on successful delete, 404 if not found
+    :param director_id: Id of the person the movie is related to
+    :param movie_id: Id of the movie to delete
+    :return: 200 on successful delete, 404 if not found
     """
     # Get the movie requested
     movie = (

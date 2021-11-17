@@ -1,5 +1,5 @@
 """
-Main App
+Main Module: This file is start point to run project, all routes availabe and swagger route defined here
 """
 from flask import redirect
 

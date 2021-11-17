@@ -1,3 +1,6 @@
+"""
+Configuration Module: This module contain every package instance and configuration this project use
+"""
 import os
 import connexion
 
