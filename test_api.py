@@ -30,21 +30,21 @@ def test_directors_read_one(client):
 	response = client.get(url)
 	assert response.status_code == 200, f"directors.read_one: expected 200. status code: {response.status_code}"
 
-# def test_director_create(client):
-# 		"""
-# 		Test API create directors module
-# 		"""
-# 		url = 'api/director'
+def test_director_create(client):
+		"""
+		Test API create directors module
+		"""
+		url = 'api/director'
 
-# 		mock_request_data = {
-# 			'department': 'TestDepartment1',
-# 			'gender': 2,
-# 			'name': 'Test1',
-# 			'uid': 1
-# 		}
+		mock_request_data = {
+			'department': 'TestDepartment1',
+			'gender': 2,
+			'name': 'Test1',
+			'uid': 1
+		}
 
-# 		response = client.post(url, json = mock_request_data)
-# 		assert response.status_code == 201, f"directors.create: expected 201. status code: {response.status_code}"
+		response = client.post(url, json = mock_request_data)
+		assert response.status_code == 201, f"directors.create: expected 201. status code: {response.status_code}"
 
 ##Endpoint Movies
 def test_movies_read_all(client):

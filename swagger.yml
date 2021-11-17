@@ -51,7 +51,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Director'
-      x-codegen-request-body-name: director
   /director/{id}:
     get:
       tags:
@@ -99,7 +98,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Director'
-      x-codegen-request-body-name: director
     delete:
       tags:
       - Directors
@@ -167,7 +165,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Movie'
-      x-codegen-request-body-name: movie
   /directors/{director_id}/movies/{movie_id}:
     get:
       tags:
@@ -227,7 +224,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Movie'
-      x-codegen-request-body-name: movie
     delete:
       tags:
       - Movies
@@ -323,6 +319,7 @@ components:
           type: string
           description: department of director
     DirectorRequest:
+      x-body-name: director
       type: object
       properties:
         name:
@@ -402,6 +399,7 @@ components:
           type: integer
           description: director id of movie
     MovieRequest:
+      x-body-name: movie
       type: object
       properties:
         original_title:
