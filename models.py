@@ -46,7 +46,7 @@ class DirectorsSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
 
-    movies = fields.Nested('TMoviesSchema', default=[], many=True)
+    movies = fields.Nested('TMoviesSchema', dump_default=[], many=True)
 
 class MoviesSchema(ma.SQLAlchemyAutoSchema):
     def __init__(self, **kwargs):
@@ -57,7 +57,7 @@ class MoviesSchema(ma.SQLAlchemyAutoSchema):
         sqla_session = db.session
         load_instance = True
 
-    director = fields.Nested("TDirectorsSchema", default=None)
+    director = fields.Nested("TDirectorsSchema", dump_default=None)
 
 class TMoviesSchema(ma.SQLAlchemyAutoSchema):
     def __init__(self, **kwargs):
