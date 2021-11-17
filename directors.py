@@ -39,7 +39,7 @@ def read_all(limit = None):
         return data
     # Otherwise, return type inserted
     else:
-        abort(404, f"Required parameter id as integer: Found{type(limit)}")
+        abort(404, f"Error when fetching data")
 
 
 def read_one(id):
@@ -167,7 +167,7 @@ def delete(id):
 
 def summary(limit):
     """
-    This function responds to a request for /api/directors
+    This function responds to a request for /api/directors/summary
     with the complete lists of directors summary
     :param limit: limit of data to show
     :return: json string of list of directors summary
@@ -214,4 +214,4 @@ def summary(limit):
         
     # Otherwise, return type inserted
     else:
-        abort(404, f"Required parameter id as integer: Found{type(limit)}")
+        abort(404, f"Error when fetching data")

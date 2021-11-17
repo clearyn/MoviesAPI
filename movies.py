@@ -39,7 +39,7 @@ def read_all(limit = None):
         return data
     # Otherwise, return type inserted
     else:
-        abort(404, f"Required parameter id as integer: Found{type(limit)}")
+        abort(404, f"Error when fetching data")
 
 
 def read_one(director_id, movie_id):
@@ -166,9 +166,10 @@ def delete(director_id, movie_id):
 
 def summary(limit, order_by = None):
     """
-    This function responds to a request for /api/movies
-    with the complete lists of movies
+    This function responds to a request for /api/movies/summary
+    with limited lists of movies, with order
     :param limit: limit of data to show
+    :param order_by: decide limited data ordered by
     :return: json string of list of movies
     """
 
@@ -182,7 +183,7 @@ def summary(limit, order_by = None):
     order_by_choices = ['budget', 'revenue', 'popularity']
     if isinstance(limit, int) == True and limit > 0:
 
-        # query by selected order by
+        # Query by selected order by & check parameter order_by
         if isinstance(order_by, str) and str(order_by) in order_by_choices:
             movies = Movies.query.order_by(desc(Movies.budget)).limit(limit)
             if order_by == 'revenue':
@@ -199,4 +200,4 @@ def summary(limit, order_by = None):
 
     # Otherwise, return error
     else:
-        abort(404, f"Required parameter id as integer: Found{type(limit)}")
+        abort(404, f"Error when fetching data")

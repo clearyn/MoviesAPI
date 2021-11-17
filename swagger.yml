@@ -278,10 +278,8 @@ paths:
     get:
       tags:
       - Summary
-      summary: Read the entire set of movies, sorted by id. Can be sort by enter limit
-        param
-      description: Read the entire set of movies, sorted by id. Can be sort by enter
-        limit param
+      summary: Read limited movies data ordered by custom sort
+      description: Read limited movies data ordered by custom sort
       operationId: movies.summary
       parameters:
       - name: limit
@@ -298,7 +296,7 @@ paths:
           type: string
       responses:
         200:
-          description: Successfully read movies set operation
+          description: Successfully read summary of movies
           content:
             application/json:
               schema:
