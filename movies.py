@@ -189,7 +189,7 @@ def summary(limit, order_by = None):
             if order_by == 'revenue':
                 movies = Movies.query.order_by(desc(Movies.revenue)).limit(limit)
             elif order_by == 'popularity':
-                movies = Movies.query.order_by(desc(Movies.revenue)).limit(limit)
+                movies = Movies.query.order_by(desc(Movies.popularity)).limit(limit)
             else:
                 movies = Movies.query.order_by(desc(Movies.budget)).limit(limit)
         else:
